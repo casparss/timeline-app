@@ -2,30 +2,26 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 
 @Injectable()
-export class TimelineSvc {
+export class TimelineUtils {
 
   //This would be calculated from the range of the activity data
   //stubbed for now
   public from = moment("2017");
   public to = moment("2020");
 
-  constructor(){
-    console.log(this);
-  }
-
-  public getRangeInDays(to, from) {
+  private getRangeInDays(to, from) {
     return to.diff(from, "days");
   }
 
-  public getFullRangeInDays(){
+  private getFullRangeInDays(){
     return this.getRangeInDays(this.to, this.from);
   }
 
-  public calculateWidthAsPercentage(fullRangeInDays, rangeInDays){
+  private calculateWidthAsPercentage(fullRangeInDays, rangeInDays){
     return (rangeInDays / fullRangeInDays) * 100;
   }
 
-  public getActivityWidth(to, from){
+  public getActivityWidth(from, to){
     let fullRangeInDays = this.getFullRangeInDays();
     let rangeInDays = this.getRangeInDays(to, from);
     return this.calculateWidthAsPercentage(fullRangeInDays, rangeInDays);

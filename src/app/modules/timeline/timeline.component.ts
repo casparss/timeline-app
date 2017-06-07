@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { TimelineSvc } from './timeline.service';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -15,10 +14,6 @@ import { Subject } from 'rxjs';
 export class TimelineCom {
 
   private timeRange: Array<any> = [];
-
-  constructor(private timelineSvc: TimelineSvc){
-
-  }
 
   private channelsStub = [{
       type: "something",

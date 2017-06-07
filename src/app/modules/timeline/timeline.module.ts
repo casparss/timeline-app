@@ -5,7 +5,7 @@ import { TimeRangeCom } from './time-range.component';
 import { TimelineCom } from './timeline.component';
 import { ActivityCom } from './activity.component';
 import { ChannelCom } from './channel.component';
-import { TimelineSvc } from './timeline.service';
+import { TimelineUtils } from './timeline.utils';
 
 @NgModule({
   imports: [
@@ -18,7 +18,7 @@ import { TimelineSvc } from './timeline.service';
     TimeRangeCom
   ],
   providers: [
-    TimelineSvc
+    TimelineUtils
   ],
   exports: [
     TimelineCom

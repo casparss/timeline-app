@@ -1,5 +1,5 @@
 import { Component, Input, HostBinding } from '@angular/core';
-import { TimelineSvc } from './timeline.service';
+import { TimelineUtils } from './timeline.utils';
 
 @Component({
   selector: 'activity',
@@ -14,7 +14,7 @@ export class ActivityCom {
   @HostBinding('style.width') width: string;
   @HostBinding('style.left') position: string;
 
-  constructor(private timelineSvc: TimelineSvc){}
+  constructor(private timelineUtils: TimelineUtils){}
 
   ngOnInit(){
     this.setWidth();
@@ -23,12 +23,12 @@ export class ActivityCom {
 
   setWidth(){
     let { from, to } = this.activityData;
-    this.width = this.timelineSvc.getActivityWidth(to, from) + "%";
+    this.width = this.timelineUtils.getActivityWidth(from, to) + "%";
   }
 
   setPosition(){
     let { from } = this.activityData;
-    this.position = this.timelineSvc.getActivityPosition(from) + "%";
+    this.position = this.timelineUtils.getActivityPosition(from) + "%";
   }
 
 }
