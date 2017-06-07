@@ -2,12 +2,14 @@ import { Component } from '@angular/core';
 import { TimelineSvc } from './timeline.service';
 import { Subject } from 'rxjs';
 
-
 @Component({
   selector: 'timeline',
   styleUrls: ['./timeline.style.css'],
   template: `
     <time-range></time-range>
+    <channel name="Advisory Boards"></channel>
+    <channel name="Publications"></channel>
+    <channel name="Medical Education"></channel>
   `
 })
 export class TimelineCom {
@@ -15,8 +17,7 @@ export class TimelineCom {
   private timeRange: Array<any> = [];
 
   constructor(private timelineSvc: TimelineSvc){
-    this.timeRange = timelineSvc.generateRange();
-    console.log(this);
+
   }
 
   private channelsStub = [{

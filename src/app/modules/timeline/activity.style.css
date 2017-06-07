@@ -1,0 +1,7 @@
+:host {
+  position: absolute;
+  background: purple;
+  color: white;
+  opacity: 0.7;
+  text-align: center;
+}

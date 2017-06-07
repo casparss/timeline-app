@@ -24,12 +24,6 @@ export class TimeRangeCom {
   private quarters: Array<string> = ["Q1", "Q2", "Q3", "Q4"];
   private years: Array<number> = [2017, 2018, 2019];
 
-  constructor(private timelineSvc: TimelineSvc){
-    this.timeRange = timelineSvc.generateRange();
-    console.log(this);
-  }
-
-
 
   // Generate timeline heading from range
 

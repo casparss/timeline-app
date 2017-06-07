@@ -2,3 +2,10 @@
   background: #edeef5;
   display: block;
 }
+
+channel {
+  display: block;
+}
+
+channel:nth-child(even) { background: #edeef5; }
+channel:nth-child(odd) { background: #ffffff; }
