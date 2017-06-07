@@ -10,4 +10,4 @@ import { HeaderBarCom } from './header-bar.component';
     HeaderBarCom
   ]
 })
-export class HeaderModule { }
+export class HeaderBarModule { }
