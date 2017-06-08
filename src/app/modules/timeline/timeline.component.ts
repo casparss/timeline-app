@@ -30,7 +30,7 @@ export class TimelineCom {
   fetch(){
     this.dataSvc.fetch()
       .then((data$: any) => {
-        this.timelineUtils.init(data$);
+        this.timelineUtils.setRange(data$);
         this.years = this.timelineUtils.getYearHeadings();
         this.channels$ = data$;
       });

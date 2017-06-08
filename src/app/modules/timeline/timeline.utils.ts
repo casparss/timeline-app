@@ -17,11 +17,11 @@ const setRange = ({ min, max }) => {
 @Injectable()
 export class TimelineUtils {
 
-  public init(data$){
+  public setRange(data$){
     data$.subscribe(data => setRange(this.getRangeMinMax(data)));
   }
 
-  getRangeMinMax(data:any){
+  public getRangeMinMax(data:any){
     let chanelsMinMax = data.map(channel => ({
       min: minBy(channel.activities, ({ period }) => period.from.unix()).period.from,
       max: maxBy(channel.activities, ({ period }) => period.to.unix()).period.to
@@ -31,18 +31,6 @@ export class TimelineUtils {
       min: minBy(chanelsMinMax, ({ min }) => min.unix()).min,
       max: maxBy(chanelsMinMax, ({ max }) => max.unix()).max
     }
-  }
-
-  private getRangeInDays(from, to) {
-    return to.diff(from, "days");
-  }
-
-  private getFullRangeInDays(){
-    return this.getRangeInDays(range.min, range.max);
-  }
-
-  private calculateWidthAsPercentage(fullRangeInDays, rangeInDays){
-    return (rangeInDays / fullRangeInDays) * 100;
   }
 
   public getActivityWidth(from, to){
@@ -67,6 +55,18 @@ export class TimelineUtils {
     }
 
     return years;
+  }
+
+  private getRangeInDays(from, to) {
+    return to.diff(from, "days");
+  }
+
+  private getFullRangeInDays(){
+    return this.getRangeInDays(range.min, range.max);
+  }
+
+  private calculateWidthAsPercentage(fullRangeInDays, rangeInDays){
+    return (rangeInDays / fullRangeInDays) * 100;
   }
 
 }
