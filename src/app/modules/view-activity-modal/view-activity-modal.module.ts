@@ -10,6 +10,9 @@ import { ViewActivityModal } from './view-activity-modal.component';
     BootstrapModalModule,
     BrowserModule
   ],
+  declarations: [
+    ViewActivityModal
+  ],
   exports: [
     ViewActivityModal
   ]
