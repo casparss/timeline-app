@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { TimelineUtils } from './timeline.utils';
+import { Component, Input } from '@angular/core';
+import { DataSvc } from '../data-service';
 import { Subject } from 'rxjs';
+import { TimelineUtils } from './timeline.utils';
 
 @Component({
   selector: 'time-range',
@@ -22,6 +23,11 @@ export class TimeRangeCom {
 
   private timeRange: Array<any> = [];
   private quarters: Array<string> = ["Q1", "Q2", "Q3", "Q4"];
-  private years: Array<number> = [2017, 2018, 2019];
+  @Input() years: Array<number>;
+
+  constructor(
+    private dataSvc: DataSvc,
+    private timelineUtils: TimelineUtils
+  ){}
 
 }

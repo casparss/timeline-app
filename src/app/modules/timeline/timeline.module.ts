@@ -7,6 +7,7 @@ import { ActivityCom } from './activity.component';
 import { ChannelCom } from './channel.component';
 import { TimelineUtils } from './timeline.utils';
 
+
 @NgModule({
   imports: [
     BrowserModule

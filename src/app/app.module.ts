@@ -5,6 +5,8 @@ import { AppComponent } from './app.component';
 import { HeaderBarModule } from './modules/header-bar';
 import { TimeLineModule } from './modules/timeline';
 
+import { DataSvc } from './modules/data-service';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -14,7 +16,7 @@ import { TimeLineModule } from './modules/timeline';
     HeaderBarModule,
     TimeLineModule
   ],
-  providers: [],
+  providers: [DataSvc],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
