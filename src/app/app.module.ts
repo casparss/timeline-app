@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { HeaderBarModule } from './modules/header-bar';
@@ -14,7 +15,8 @@ import { DataSvc } from './modules/data-service';
   imports: [
     BrowserModule,
     HeaderBarModule,
-    TimeLineModule
+    TimeLineModule,
+    HttpModule
   ],
   providers: [DataSvc],
   bootstrap: [AppComponent]

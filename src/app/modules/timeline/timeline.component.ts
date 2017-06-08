@@ -9,7 +9,7 @@ import { DataSvc } from '../data-service';
   template: `
     <time-range [years]="years"></time-range>
     <channel
-      *ngFor="let channel of channels$ | async"
+      *ngFor="let channel of channels"
       [channel]="channel"
     ></channel>
   `
@@ -17,7 +17,7 @@ import { DataSvc } from '../data-service';
 export class TimelineCom {
 
   private timeRange: Array<any> = [];
-  private channels$: any;
+  private channels: any;
   private years: Array<number>;
 
   constructor(
@@ -29,10 +29,10 @@ export class TimelineCom {
 
   fetch(){
     this.dataSvc.fetch()
-      .then((data$: any) => {
-        this.timelineUtils.setRange(data$);
+      .subscribe(channels => {
+        this.timelineUtils.setRange(channels);
         this.years = this.timelineUtils.getYearHeadings();
-        this.channels$ = data$;
+        this.channels = channels;
       });
   }
 

@@ -17,8 +17,8 @@ const setRange = ({ min, max }) => {
 @Injectable()
 export class TimelineUtils {
 
-  public setRange(data$){
-    data$.subscribe(data => setRange(this.getRangeMinMax(data)));
+  public setRange(data){
+    setRange(this.getRangeMinMax(data))
   }
 
   public getRangeMinMax(data:any){
