@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewContainerRef } from '@angular/core';
+import { Modal } from 'angular2-modal';
 
 @Component({
   selector: 'app-root',
@@ -13,8 +14,9 @@ import { Component } from '@angular/core';
     <footer>
       Footer
     </footer>
+    <span defaultOverlayTarget></span>
   `
 })
 export class AppComponent {
-  title = 'app';
+
 }

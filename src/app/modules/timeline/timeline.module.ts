@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { Overlay, Modal } from 'angular2-modal';
 import { ViewActivityModalModule } from '../view-activity-modal'
 
 import { TimeRangeCom } from './time-range.component';
@@ -20,7 +21,8 @@ import { TimelineUtils } from './timeline.utils';
     TimeRangeCom
   ],
   providers: [
-    TimelineUtils
+    TimelineUtils,
+    Overlay
   ],
   exports: [
     TimelineCom

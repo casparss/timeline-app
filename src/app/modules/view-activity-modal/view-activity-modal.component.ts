@@ -6,12 +6,12 @@ import { DialogRef, ModalComponent, CloseGuard } from 'angular2-modal';
 //need to test to see if this even works
 @Component({
   selector: 'view-activity-modal',
-  styles: [``],
+  styleUrls: ['./view-activity-modal.style.css'],
   template: `
     <h1>VIEW ACTIVITY MODAL</h1>
   `
 })
-export class ViewActivityModal  {
+export class ViewActivityModalCom  {
 
   context: any;
 

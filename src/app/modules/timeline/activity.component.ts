@@ -1,6 +1,8 @@
-import { Component, Input, HostBinding } from '@angular/core';
+import { Component, Input, HostBinding, HostListener } from '@angular/core';
+import { Overlay, Modal } from 'angular2-modal';
 import { TimelineUtils } from './timeline.utils';
 import * as moment from 'moment';
+import { ViewActivityModalCom } from '../view-activity-modal/view-activity-modal.component';
 
 @Component({
   selector: 'activity',
@@ -15,7 +17,12 @@ export class ActivityCom {
   @HostBinding('style.width') width: string;
   @HostBinding('style.left') position: string;
 
-  constructor(private timelineUtils: TimelineUtils){}
+  constructor(private timelineUtils: TimelineUtils, public modal: Modal){}
+
+  @HostListener('click', ['$event.target'])
+  openModal(){
+    this.modal.open(ViewActivityModalCom, this.activity);
+  }
 
   ngOnInit(){
     this.setWidth();
