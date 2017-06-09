@@ -17,16 +17,6 @@ export class ActivityCom {
 
   constructor(private timelineUtils: TimelineUtils){}
 
-  ngOnChanges(){
-    this.convertToMoment();
-  }
-
-  convertToMoment(){
-    let { from, to } = this.activity.period;
-    this.activity.period.from = moment(from);
-    this.activity.period.to = moment(to);
-  }
-
   ngOnInit(){
     this.setWidth();
     this.setPosition();

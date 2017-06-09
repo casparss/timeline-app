@@ -3,22 +3,16 @@ import { minBy, maxBy } from 'lodash';
 import * as moment from 'moment';
 
 //Ideally would want moment typing on this object
-const range = {
+let range = {
   min: null,
   max: null
-};
-
-//Setter for range
-const setRange = ({ min, max }) => {
-  range.min = min;
-  range.max = max;
 };
 
 @Injectable()
 export class TimelineUtils {
 
   public setRange(data){
-    setRange(this.getRangeMinMax(data))
+    Object.assign(range, this.getRangeMinMax(data));
   }
 
   public getRangeMinMax(data:any){

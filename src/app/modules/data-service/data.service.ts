@@ -13,7 +13,7 @@ export class DataSvc {
   constructor(private http: Http){}
 
   fetch(){
-    return this.http.get('/channels')
+    return this.http.get('/api/channels')
       .map(data => data.json())
       .map(channels => {
         channels.forEach(({ activities }) => {
