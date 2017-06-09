@@ -1,23 +1,24 @@
 import { Component } from '@angular/core';
 import { DialogRef, ModalComponent, CloseGuard } from 'angular2-modal';
+import { ViewActivityModalSvc } from './view-activity-modal.service';
 
 
-//Ripped out the example and removed everything
-//need to test to see if this even works
 @Component({
   selector: 'view-activity-modal',
   styleUrls: ['./view-activity-modal.style.css'],
   template: `
-    <h1>VIEW ACTIVITY MODAL</h1>
+    <h1>{{activity.title}}</h1>
+    <p>{{activity.description}}</p>
   `
 })
 export class ViewActivityModalCom  {
 
   context: any;
+  activity: any;
 
-  constructor(public dialog: DialogRef<any>) {
-    this.context = dialog.context;
+  constructor(public dialog: DialogRef<any>, private viewActivitySvc: ViewActivityModalSvc) {
     dialog.setCloseGuard("this");
+    this.activity = this.viewActivitySvc.activity;
   }
 
   beforeDismiss(): void {
@@ -25,6 +26,6 @@ export class ViewActivityModalCom  {
   }
 
   beforeClose(): void {
-
+    this.viewActivitySvc.purge();
   }
 }

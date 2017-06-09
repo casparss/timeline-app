@@ -8,6 +8,7 @@ import { HeaderBarModule } from './modules/header-bar';
 import { TimeLineModule } from './modules/timeline';
 
 import { DataSvc } from './modules/data-service';
+import { ViewActivityModalSvc } from './modules/view-activity-modal/view-activity-modal.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,10 @@ import { DataSvc } from './modules/data-service';
     HttpModule,
     ModalModule.forRoot()
   ],
-  providers: [DataSvc],
+  providers: [
+    DataSvc,
+    ViewActivityModalSvc
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

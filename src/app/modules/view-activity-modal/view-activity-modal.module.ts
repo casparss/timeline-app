@@ -4,6 +4,7 @@ import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { ViewActivityModalCom } from './view-activity-modal.component';
 
+
 @NgModule({
   imports: [
     ModalModule,
