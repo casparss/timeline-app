@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { DataSvc } from '../data-service';
-import { Subject } from 'rxjs';
 import { TimelineUtils } from './timeline.utils';
 
 @Component({

@@ -1,5 +1,4 @@
 :host {
-  background: #edeef5;
   display: block;
 }
 
@@ -9,3 +8,17 @@ channel {
 
 channel:nth-child(even) { background: #edeef5; }
 channel:nth-child(odd) { background: #ffffff; }
+
+.button-container{
+  margin-top:30px;
+}
+
+button, label {
+  display: block;
+  margin: auto;
+  padding:15px;
+}
+
+label{
+  width:300px;
+}

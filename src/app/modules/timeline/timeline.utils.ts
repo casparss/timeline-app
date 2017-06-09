@@ -7,6 +7,7 @@ let range = {
   max: null
 };
 
+
 @Injectable()
 export class TimelineUtils {
 
@@ -15,10 +16,15 @@ export class TimelineUtils {
   }
 
   public getRangeMinMax(data:any){
-    let chanelsMinMax = data.map(channel => ({
-      min: minBy(channel.activities, ({ period }) => period.from.unix()).period.from,
-      max: maxBy(channel.activities, ({ period }) => period.to.unix()).period.to
-    }));
+    let chanelsMinMax = data.map(channel => {
+      let min = minBy(channel.activities, ({ period }) => period.from.unix());
+      let max = maxBy(channel.activities, ({ period }) => period.to.unix());
+
+      return {
+        min: min ? min.period.from : { unix(){} },
+        max: max ? max.period.to : { unix(){} }
+      }
+    });
 
     return {
       min: minBy(chanelsMinMax, ({ min }) => min.unix()).min,
@@ -43,7 +49,7 @@ export class TimelineUtils {
     let max = range.max.year();
     let years = [];
 
-    for(let i = 0; i < (max - min); i++){
+    for(let i = 0; i <= (max - min); i++){
       years.push(min + i);
     }
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DialogRef, ModalComponent, CloseGuard } from 'angular2-modal';
+import { DialogRef } from 'angular2-modal';
 import { ViewActivityModalSvc } from './view-activity-modal.service';
 
 

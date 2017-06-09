@@ -5,6 +5,7 @@ import * as moment from 'moment';
   selector: 'channel',
   styleUrls: ['channel.style.css'],
   template: `
+    <h1>{{channel.name}}</h1>
     <activity
       *ngFor="let activity of channel.activities"
       [activity]="activity"

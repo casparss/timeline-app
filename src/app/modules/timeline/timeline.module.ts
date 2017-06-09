@@ -8,10 +8,12 @@ import { TimelineCom } from './timeline.component';
 import { ActivityCom } from './activity.component';
 import { ChannelCom } from './channel.component';
 import { TimelineUtils } from './timeline.utils';
+import { FormsModule }   from '@angular/forms';
 
 @NgModule({
   imports: [
     BrowserModule,
+    FormsModule,
     ViewActivityModalModule
   ],
   declarations: [

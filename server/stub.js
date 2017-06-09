@@ -52,7 +52,7 @@ module.exports = [{
       "title": "Case Study",
       "period": {
         "from": "Thu Jun 08 2017 10:20:57 GMT+0100 (BST)",
-        "to": "Thu Aug 08 2019 10:20:57 GMT+0100 (BST)"
+        "to": "Thu Aug 08 2017 10:20:57 GMT+0100 (BST)"
       },
       "location": "London",
       "description": "Lorem ipsum",
@@ -65,8 +65,8 @@ module.exports = [{
     {
       "title": "eLearning review",
       "period": {
-        "from": "Thu Aug 08 2017 10:20:57 GMT+0100 (BST)",
-        "to": "Thu Nov 08 2017 10:20:57 GMT+0100 (BST)"
+        "from": "Thu Jun 08 2019 10:20:57 GMT+0100 (BST)",
+        "to": "Thu Sep 08 2019 10:20:57 GMT+0100 (BST)"
       },
       "location": "London",
       "description": "Lorem ipsum",

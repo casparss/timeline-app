@@ -11,9 +11,7 @@ import { Modal } from 'angular2-modal';
     <main>
       <timeline></timeline>
     </main>
-    <footer>
-      Footer
-    </footer>
+    <footer></footer>
     <span defaultOverlayTarget></span>
   `
 })

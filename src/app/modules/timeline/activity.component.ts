@@ -1,5 +1,5 @@
-import { Component, Input, HostBinding, HostListener, ViewChild } from '@angular/core';
-import { Overlay, Modal } from 'angular2-modal';
+import { Component, Input, HostBinding, HostListener } from '@angular/core';
+import { Modal } from 'angular2-modal';
 import { TimelineUtils } from './timeline.utils';
 import * as moment from 'moment';
 import { ViewActivityModalCom } from '../view-activity-modal/view-activity-modal.component';

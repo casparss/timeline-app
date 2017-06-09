@@ -3,7 +3,9 @@ const app = express();
 const router = require('./routes');
 const morgan = require('morgan');
 const db = require('./db');
+const bodyParser = require('body-parser');
 
+app.use(bodyParser.json());
 app.use(morgan('tiny'));
 app.use('/', express.static('../dist'));
 app.use('/api', router);

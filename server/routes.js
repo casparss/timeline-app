@@ -10,4 +10,12 @@ router.get("/channels", (req, res) => {
 
 });
 
+router.post("/channel", (req, res) => {
+
+  new Channel(req.body).save()
+    .then(channel => res.json(channel).status(200))
+    .catch(err => res.json(err).status(500));
+
+});
+
 module.exports = router;
