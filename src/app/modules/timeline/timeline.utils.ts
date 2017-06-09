@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { minBy, maxBy } from 'lodash';
 import * as moment from 'moment';
 
-//Ideally would want moment typing on this object
 let range = {
   min: null,
   max: null

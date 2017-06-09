@@ -8,6 +8,7 @@
 # dependencies
 /node_modules
 /server/node_modules
+/server/data
 # IDEs and editors
 /.idea
 .project
