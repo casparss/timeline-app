@@ -18,4 +18,19 @@ router.post("/channel", (req, res) => {
 
 });
 
+router.post("/channel/:channelId/acitvity/:activityId", (req, res) => {
+
+  let { channelId, activityId } = req.params;
+  let activityForm = req.body;
+
+  Channel.findById(channelId).exec()
+    .then(channel => {
+      Object.assign(channel.activities.id(activityId), activityForm);
+      return channel.save();
+    })
+    .then(channel => res.json(channel.activities.id(activityId)).status(200))
+    .catch(err => res.json(err).status(500));
+
+});
+
 module.exports = router;

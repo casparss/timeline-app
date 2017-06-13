@@ -15,6 +15,7 @@ import { ViewActivityModalSvc } from '../view-activity-modal/view-activity-modal
 })
 export class ActivityCom {
   @Input() activity: any;
+  @Input() channelId: any;
   @HostBinding('style.width') width: string;
   @HostBinding('style.left') position: string;
 
@@ -27,6 +28,7 @@ export class ActivityCom {
   @HostListener('click', ['$event.target'])
   openModal(){
     this.viewActivitySvc.activity = this.activity;
+    this.viewActivitySvc.channelId = this.channelId;
     this.modal.open(ViewActivityModalCom);
   }
 

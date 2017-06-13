@@ -9,6 +9,7 @@ import * as moment from 'moment';
     <activity
       *ngFor="let activity of channel.activities"
       [activity]="activity"
+      [channelId]="channel._id"
     ></activity>
   `
 })

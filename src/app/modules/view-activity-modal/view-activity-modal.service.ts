@@ -10,17 +10,26 @@ import { Injectable } from '@angular/core';
 export class ViewActivityModalSvc {
 
   private _activity: any = null;
+  private _channelId: any = null;
 
   get activity(){
     return this._activity;
   }
 
-  set activity(newActivity){
-    this._activity = newActivity;
+  get channelId(){
+    return this._channelId;
+  }
+
+  set activity(activity){
+    this._activity = activity;
+  }
+
+  set channelId(_id){
+    this._channelId = _id;
   }
 
   purge(){
-    this._activity = null;
+    this._activity = this._activity = null;
   }
 
 }

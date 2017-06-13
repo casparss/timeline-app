@@ -13,7 +13,7 @@ export class DataSvc {
 
   fetch(){
     return this.http.get('/api/channels')
-      .map(data => data.json())
+      .map(res => res.json())
       .map(channels => {
         channels.forEach(({ activities }) => {
           activities.forEach(({ period }) => {
@@ -27,9 +27,12 @@ export class DataSvc {
 
   addChannel(channel){
     return this.http.post('/api/channel', channel)
-      .map(data => data.json());
+      .map(res => res.json());
   }
 
-
+  updateActivity({ activityForm, channelId, activityId }){
+    let uri = `/api/channel/${channelId}/acitvity/${activityId}`;
+    return this.http.post(uri, activityForm);
+  }
 
 }

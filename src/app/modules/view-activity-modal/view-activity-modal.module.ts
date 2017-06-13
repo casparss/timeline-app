@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { ViewActivityModalCom } from './view-activity-modal.component';
@@ -9,12 +10,16 @@ import { ViewActivityModalCom } from './view-activity-modal.component';
   imports: [
     ModalModule,
     BootstrapModalModule,
-    BrowserModule
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
     ViewActivityModalCom
   ],
-  entryComponents: [ViewActivityModalCom],
+  entryComponents: [
+    ViewActivityModalCom
+  ],
   exports: [
     ViewActivityModalCom
   ]
