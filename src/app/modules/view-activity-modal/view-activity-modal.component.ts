@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { DialogRef } from 'angular2-modal';
+import { Component, Input, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ViewActivityModalSvc } from './view-activity-modal.service';
 import { DataSvc } from '../data-service';
@@ -7,88 +6,118 @@ import { DataSvc } from '../data-service';
 @Component({
   selector: 'view-activity-modal',
   styleUrls: ['./view-activity-modal.style.css'],
+  encapsulation: ViewEncapsulation.None,
   template: `
-    <form [formGroup]="activityForm" [ngSwitch]="editMode" (submit)="updateActivity(this.activityForm.value, activityForm.valid)">
+  <modal #activityModal
+    modalClass="activity-modal"
+    title="View activity"
+    cancelButtonLabel="cancel"
+    [hideCloseButton]="false"
+    [closeOnEscape]="true"
+    [closeOnOutsideClick]="false">
 
-      <div>
-        <button type="button" (click)="toggleEditMode()">Edit activity</button>
-      </div>
+    <modal-header>
+        View Activity
+    </modal-header>
 
-      <h1>
-        TItle:
-        <span *ngSwitchCase="false">{{activity.title}}</span>
-        <input *ngSwitchCase="true" formControlName="title" type="text" />
-      </h1>
+    <modal-content>
+      <form *ngIf="hasFormData" [formGroup]="activityForm" [ngSwitch]="editMode" (submit)="updateActivity(this.activityForm.value, activityForm.valid)">
 
-      <p>
-        Description:
-        <span *ngSwitchCase="false">{{activity.description}}</span>
-        <input *ngSwitchCase="true" formControlName="description" type="text" />
-      </p>
+        <div>
+          <button type="button" (click)="toggleEditMode()">Edit activity</button>
+        </div>
 
-      <div formGroupName="period">
+        <h1>
+          TItle:
+          <span *ngSwitchCase="false">{{activity.title}}</span>
+          <input *ngSwitchCase="true" formControlName="title" type="text" />
+        </h1>
+
         <p>
-          From:
-          <span *ngSwitchCase="false">{{activity.period.from}}</span>
-          <input *ngSwitchCase="true" formControlName="from" type="text" />
+          Description:
+          <span *ngSwitchCase="false">{{activity.description}}</span>
+          <input *ngSwitchCase="true" formControlName="description" type="text" />
+        </p>
+
+        <div formGroupName="period">
+          <p>
+            From:
+            <span *ngSwitchCase="false">{{activity.period.from}}</span>
+            <input *ngSwitchCase="true" formControlName="from" type="text" />
+          </p>
+
+          <p>
+            To:
+            <span *ngSwitchCase="false">{{activity.period.to}}</span>
+            <input *ngSwitchCase="true" formControlName="to" type="text" />
+          </p>
+        </div>
+
+        <p>
+          Location:
+          <span *ngSwitchCase="false">{{activity.location}}</span>
+          <input *ngSwitchCase="true" formControlName="location" type="text" />
         </p>
 
         <p>
-          To:
-          <span *ngSwitchCase="false">{{activity.period.to}}</span>
-          <input *ngSwitchCase="true" formControlName="to" type="text" />
+          Communication drivers:
+          <span *ngSwitchCase="false">{{activity.communication_drivers}}</span>
+          <input *ngSwitchCase="true" formControlName="communication_drivers" type="text" />
         </p>
-      </div>
 
-      <p>
-        Location:
-        <span *ngSwitchCase="false">{{activity.location}}</span>
-        <input *ngSwitchCase="true" formControlName="location" type="text" />
-      </p>
+        <p>
+          Kols engaged:
+          <span *ngSwitchCase="false">{{activity.kols_engaged}}</span>
+          <input *ngSwitchCase="true" formControlName="kols_engaged" type="text" />
+        </p>
 
-      <p>
-        Communication drivers:
-        <span *ngSwitchCase="false">{{activity.communication_drivers}}</span>
-        <input *ngSwitchCase="true" formControlName="communication_drivers" type="text" />
-      </p>
+        <p>
+          No. of HCPs:
+          <span *ngSwitchCase="false">{{activity.no_of_hcps}}</span>
+          <input *ngSwitchCase="true" formControlName="no_of_hcps" type="text" />
+        </p>
 
-      <p>
-        Kols engaged:
-        <span *ngSwitchCase="false">{{activity.kols_engaged}}</span>
-        <input *ngSwitchCase="true" formControlName="kols_engaged" type="text" />
-      </p>
+        <p>
+          Status:
+          <span *ngSwitchCase="false">{{activity.status}}</span>
+          <input *ngSwitchCase="true" formControlName="status" type="text" />
+        </p>
+        <button *ngSwitchCase="true" type="submit">Update activity</button>
+      </form>
+    </modal-content>
 
-      <p>
-        No. of HCPs:
-        <span *ngSwitchCase="false">{{activity.no_of_hcps}}</span>
-        <input *ngSwitchCase="true" formControlName="no_of_hcps" type="text" />
-      </p>
+    <modal-footer>
+        Footer
+    </modal-footer>
 
-      <p>
-        Status:
-        <span *ngSwitchCase="false">{{activity.status}}</span>
-        <input *ngSwitchCase="true" formControlName="status" type="text" />
-      </p>
-      <button *ngSwitchCase="true" type="submit">Update activity</button>
-    </form>
+  </modal>
   `
 })
 export class ViewActivityModalCom  {
 
-  context: any;
-  activity: any;
+  private activity: any;
+  private channelId: string;
+  private hasFormData: boolean = false;
+
   editMode: boolean = false;
   activityForm: FormGroup;
+  @ViewChild('activityModal') activityModal;
 
   constructor(
-    public dialog: DialogRef<any>,
     private viewActivitySvc: ViewActivityModalSvc,
     private fb: FormBuilder,
     private dataSvc: DataSvc
-  ) {
+  ) {}
 
-    this.activity = this.viewActivitySvc.activity;
-    this.initialiseForm();
+  ngOnInit(){
+    this.viewActivitySvc.onOpen
+      .subscribe(({ activity, channelId} ) => {
+        this.activity = activity;
+        this.channelId = channelId;
+        this.initialiseForm();
+        this.hasFormData = true;
+        this.activityModal.open();
+      });
   }
 
   initialiseForm(){

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 
 //This service is used to pass data between the activity component and the
 //modal component instance. It's a really crap work around, we should just
@@ -11,6 +11,11 @@ export class ViewActivityModalSvc {
 
   private _activity: any = null;
   private _channelId: any = null;
+  public onOpen = new EventEmitter();
+
+  open(args){
+    this.onOpen.emit(args);
+  }
 
   get activity(){
     return this._activity;

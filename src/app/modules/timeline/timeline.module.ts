@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Overlay, Modal } from 'angular2-modal';
-import { ViewActivityModalModule } from '../view-activity-modal'
 
 import { TimeRangeCom } from './time-range.component';
 import { TimelineCom } from './timeline.component';
@@ -13,8 +12,7 @@ import { FormsModule }   from '@angular/forms';
 @NgModule({
   imports: [
     BrowserModule,
-    FormsModule,
-    ViewActivityModalModule
+    FormsModule
   ],
   declarations: [
     TimelineCom,

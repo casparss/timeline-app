@@ -5,14 +5,15 @@ import { Modal } from 'angular2-modal';
   selector: 'app-root',
   styleUrls: ['./app.component.css'],
   template: `
+<view-activity-modal></view-activity-modal>
     <header>
       <header-bar></header-bar>
     </header>
     <main>
+
       <timeline></timeline>
     </main>
     <footer></footer>
-    <span defaultOverlayTarget></span>
   `
 })
 export class AppComponent {

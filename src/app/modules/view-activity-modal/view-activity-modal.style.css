@@ -1,7 +1,10 @@
-:host {
+.activity-modal {
+  top: 0;
+  position: fixed;
   display:block;
   background: grey;
   height: 90vh;
   width: 80vw;
   margin: 5vh 10vw;
+  z-index: 100;
 }

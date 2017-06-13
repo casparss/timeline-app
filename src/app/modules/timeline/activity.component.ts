@@ -1,8 +1,6 @@
-import { Component, Input, HostBinding, HostListener } from '@angular/core';
-import { Modal } from 'angular2-modal';
+import { Component, Input, HostBinding, HostListener, ViewChild } from '@angular/core';
 import { TimelineUtils } from './timeline.utils';
 import * as moment from 'moment';
-import { ViewActivityModalCom } from '../view-activity-modal/view-activity-modal.component';
 import { ViewActivityModalSvc } from '../view-activity-modal/view-activity-modal.service';
 
 @Component({
@@ -21,15 +19,13 @@ export class ActivityCom {
 
   constructor(
     private timelineUtils: TimelineUtils,
-    private modal: Modal,
     private viewActivitySvc: ViewActivityModalSvc
   ){}
 
   @HostListener('click', ['$event.target'])
   openModal(){
-    this.viewActivitySvc.activity = this.activity;
-    this.viewActivitySvc.channelId = this.channelId;
-    this.modal.open(ViewActivityModalCom);
+    let args = { activity: this.activity, channelId: this.channelId };
+    this.viewActivitySvc.open(args);
   }
 
   ngOnInit(){
