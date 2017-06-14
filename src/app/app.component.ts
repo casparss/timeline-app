@@ -1,5 +1,4 @@
 import { Component, ViewContainerRef } from '@angular/core';
-import { Modal } from 'angular2-modal';
 
 @Component({
   selector: 'app-root',

@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { ModalModule } from 'angular2-modal';
 import { ViewActivityModalModule } from './modules/view-activity-modal';
 
 import { AppComponent } from './app.component';
@@ -20,8 +19,7 @@ import { ViewActivityModalSvc } from './modules/view-activity-modal/view-activit
     HeaderBarModule,
     TimeLineModule,
     HttpModule,
-    ViewActivityModalModule,
-    ModalModule.forRoot()
+    ViewActivityModalModule
   ],
   providers: [
     DataSvc,

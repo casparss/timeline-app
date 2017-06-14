@@ -4,6 +4,7 @@ import { TimelineSvc } from './timeline.service';
 import { TimelineUtils } from './timeline.utils';
 import { DataSvc } from '../data-service';
 import { Subject, Observable } from 'rxjs';
+import { FileUploader } from 'ng2-file-upload';
 
 @Component({
   selector: 'timeline',
@@ -26,6 +27,15 @@ import { Subject, Observable } from 'rxjs';
     <div class="button-container">
       <button (click)="toggleEditMode()">Toggle edit mode</button>
     </div>
+
+    <div *ngIf="editMode" class="button-container">
+      <label>
+        Import CSV
+        <input name="csv" type="file" ng2FileSelect [uploader]="uploader" />
+        <button (click)="uploadCsv()">Import CSV file</button>
+      </label>
+    </div>
+
   `
 })
 export class TimelineCom {
@@ -34,6 +44,7 @@ export class TimelineCom {
   private channelsSubject$ = new Subject();
   private channelsLastValue;
   private editMode: boolean = false;
+  private uploader: FileUploader = new FileUploader({url: '/api/import'});
 
   private channelTitle: string;
   private years: Array<number>;
@@ -65,6 +76,10 @@ export class TimelineCom {
 
   fetch(){
     this.dataSvc.fetch().subscribe(channels => this.channelsSubject$.next(channels));
+  }
+
+  uploadCsv(){
+    this.uploader.uploadAll();
   }
 
   addChannel(){

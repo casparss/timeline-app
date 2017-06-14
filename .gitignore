@@ -9,6 +9,7 @@
 /node_modules
 /server/node_modules
 /server/data
+/server/uploads
 # IDEs and editors
 /.idea
 .project

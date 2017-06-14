@@ -1,6 +1,12 @@
 const router = require('express').Router();
 const Channel = require('./channel.model');
 const stub = require('./stub');
+const multer = require('multer');
+const csv = require('csvtojson');
+const streamifier = require('streamifier');
+
+const storage = multer.memoryStorage()
+const upload = multer({ storage: storage })
 
 router.get("/channels", (req, res) => {
 
@@ -40,6 +46,15 @@ router.delete("/channel/:channelId", (req, res) => {
   Channel.findOneAndRemove({ _id: channelId }).exec()
     .then(doc => res.json(doc).status(201))
     .catch(err => res.json(err).status(500));
+
+});
+
+router.post("/import", upload.single('file'), (req, res) => {
+
+  csv()
+    .fromStream(streamifier.createReadStream(req.file.buffer))
+    .on('csv', csvRow => console.log(csvRow))
+    .on('done', error => error ? res.json(error).status(500) : res.status(201));
 
 });
 

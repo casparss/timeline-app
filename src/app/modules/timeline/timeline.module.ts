@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
 
 import { TimeRangeCom } from './time-range.component';
 import { TimelineCom } from './timeline.component';
@@ -19,7 +20,8 @@ import { FormsModule }   from '@angular/forms';
     TimelineCom,
     ActivityCom,
     ChannelCom,
-    TimeRangeCom
+    TimeRangeCom,
+    FileSelectDirective
   ],
   providers: [
     TimelineUtils,
