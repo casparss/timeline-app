@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { Overlay, Modal } from 'angular2-modal';
 
 import { TimeRangeCom } from './time-range.component';
 import { TimelineCom } from './timeline.component';
 import { ActivityCom } from './activity.component';
 import { ChannelCom } from './channel.component';
+import { TimelineSvc } from './timeline.service';
 import { TimelineUtils } from './timeline.utils';
 import { FormsModule }   from '@angular/forms';
+
 
 @NgModule({
   imports: [
@@ -22,7 +23,7 @@ import { FormsModule }   from '@angular/forms';
   ],
   providers: [
     TimelineUtils,
-    Overlay
+    TimelineSvc
   ],
   exports: [
     TimelineCom

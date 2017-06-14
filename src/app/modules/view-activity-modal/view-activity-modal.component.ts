@@ -9,6 +9,7 @@ import { DataSvc } from '../data-service';
   encapsulation: ViewEncapsulation.None,
   template: `
   <modal #activityModal
+    (onClose)="editMode = false"
     modalClass="activity-modal"
     title="View activity"
     cancelButtonLabel="cancel"
@@ -16,9 +17,7 @@ import { DataSvc } from '../data-service';
     [closeOnEscape]="true"
     [closeOnOutsideClick]="false">
 
-    <modal-header>
-        View Activity
-    </modal-header>
+    <modal-header></modal-header>
 
     <modal-content>
       <form *ngIf="hasFormData" [formGroup]="activityForm" [ngSwitch]="editMode" (submit)="updateActivity(this.activityForm.value, activityForm.valid)">
@@ -85,10 +84,6 @@ import { DataSvc } from '../data-service';
         <button *ngSwitchCase="true" type="submit">Update activity</button>
       </form>
     </modal-content>
-
-    <modal-footer>
-        Footer
-    </modal-footer>
 
   </modal>
   `
