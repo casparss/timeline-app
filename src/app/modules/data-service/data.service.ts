@@ -30,6 +30,10 @@ export class DataSvc {
       .map(res => res.json());
   }
 
+  removeChannel(channelId: string){
+    return this.http.delete(`/api/channel/${channelId}`);
+  }
+
   updateActivity({ activityForm, channelId, activityId }){
     let uri = `/api/channel/${channelId}/acitvity/${activityId}`;
     return this.http.post(uri, activityForm);

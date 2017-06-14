@@ -33,4 +33,14 @@ router.post("/channel/:channelId/acitvity/:activityId", (req, res) => {
 
 });
 
+router.delete("/channel/:channelId", (req, res) => {
+
+  let { channelId } = req.params;
+
+  Channel.findOneAndRemove({ _id: channelId }).exec()
+    .then(doc => res.json(doc).status(201))
+    .catch(err => res.json(err).status(500));
+
+});
+
 module.exports = router;

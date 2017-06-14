@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { remove } from 'lodash';
 import { TimelineSvc } from './timeline.service';
 import { TimelineUtils } from './timeline.utils';
 import { DataSvc } from '../data-service';
@@ -12,6 +13,7 @@ import { Subject, Observable } from 'rxjs';
     <channel
       *ngFor="let channel of channels$ | async"
       [channel]="channel"
+      (onRemove)="removeChannel($event)"
     ></channel>
 
     <div *ngIf="editMode" class="button-container">
@@ -73,15 +75,27 @@ export class TimelineCom {
 
     this.dataSvc.addChannel(newChannel)
       .subscribe(channel => {
-        let channelsCopy = Object.assign([], this.channelsLastValue);
-        channelsCopy.push(channel);
-        this.channelsSubject$.next(channelsCopy);
+        this.updateChannels(channels => {
+          channels.push(channel);
+          return channels;
+        });
         this.channelTitle = "";
       });
   }
 
-  removeChannel(){
+  removeChannel(channelId: string){
+    this.dataSvc.removeChannel(channelId)
+      .subscribe(() => this.updateChannels(
+        channels => {
+          remove(channels, channel => channel._id === channelId);
+          return channels;
+        }
+      ));
+  }
 
+  updateChannels(mutator){
+    let channelsCopy = Object.assign([], this.channelsLastValue);
+    this.channelsSubject$.next(mutator(channelsCopy));
   }
 
 }
