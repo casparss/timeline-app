@@ -5,6 +5,7 @@ import { TimelineUtils } from './timeline.utils';
 import { DataSvc } from '../data-service';
 import { Subject, Observable } from 'rxjs';
 import { FileUploader } from 'ng2-file-upload';
+import * as moment from 'moment';
 
 @Component({
   selector: 'timeline',
@@ -17,23 +18,25 @@ import { FileUploader } from 'ng2-file-upload';
       (onRemove)="removeChannel($event)"
     ></channel>
 
-    <div *ngIf="editMode" class="button-container">
-      <button (click)="addChannel()">Add Channel</button>
-      <label>Channel title:
-        <input [(ngModel)]="channelTitle" type="text" />
-      </label>
-    </div>
+    <div class="button-group">
+      <div *ngIf="editMode" class="button-container">
+        <button (click)="addChannel()">Add Channel</button>
+          <label>Channel title:
+          <input [(ngModel)]="channelTitle" type="text" />
+        </label>
+      </div>
 
-    <div class="button-container">
-      <button (click)="toggleEditMode()">Toggle edit mode</button>
-    </div>
+      <div class="button-container">
+        <button (click)="toggleEditMode()">Toggle edit mode</button>
+      </div>
 
-    <div *ngIf="editMode" class="button-container">
-      <label>
-        Import CSV
-        <input name="csv" type="file" ng2FileSelect [uploader]="uploader" />
-        <button (click)="uploadCsv()">Import CSV file</button>
-      </label>
+      <div *ngIf="editMode" class="button-container">
+        <label>
+          Import channel from CSV
+          <input name="csv" type="file" ng2FileSelect [uploader]="uploader" />
+          <button (click)="uploadCsv()">Upload</button>
+        </label>
+      </div>
     </div>
 
   `
@@ -41,7 +44,7 @@ import { FileUploader } from 'ng2-file-upload';
 export class TimelineCom {
 
   private channels$: Observable<any>;
-  private channelsSubject$ = new Subject();
+  private channelsSubject$ = <any>new Subject();
   private channelsLastValue;
   private editMode: boolean = false;
   private uploader: FileUploader = new FileUploader({url: '/api/import'});
@@ -59,6 +62,13 @@ export class TimelineCom {
 
   ngOnInit(){
     this.fetch();
+
+    this.uploader.onCompleteItem = ((file, res) => {
+      this.updateChannels(channels => {
+        channels.push(JSON.parse(res));
+        return channels;
+      });
+    });
   }
 
   toggleEditMode(){
@@ -67,6 +77,15 @@ export class TimelineCom {
 
   configureChannels$(){
     return this.channelsSubject$.asObservable()
+      .map(channels => {
+        channels.forEach(({ activities }) => {
+          activities.forEach(({ period }) => {
+            period.from = moment(period.from);
+            period.to = moment(period.to);
+          });
+        });
+        return channels;
+      })
       .do(channels => {
         this.timelineUtils.setRange(channels);
         this.years = this.timelineUtils.getYearHeadings();

@@ -4,6 +4,7 @@ const stub = require('./stub');
 const multer = require('multer');
 const csv = require('csvtojson');
 const streamifier = require('streamifier');
+const CsvArrayParser = require('./csv-array-parser');
 
 const storage = multer.memoryStorage()
 const upload = multer({ storage: storage })
@@ -51,10 +52,31 @@ router.delete("/channel/:channelId", (req, res) => {
 
 router.post("/import", upload.single('file'), (req, res) => {
 
+  let parser = new CsvArrayParser();
+
   csv()
     .fromStream(streamifier.createReadStream(req.file.buffer))
-    .on('csv', csvRow => console.log(csvRow))
-    .on('done', error => error ? res.json(error).status(500) : res.status(201));
+    .on('csv', csvRow => parser.pushRawCsvRow(csvRow))
+    .on('done', error => {
+      if(error){
+        res.json(error).status(500);
+      } else {
+        let channelObj = parser.generate();
+
+        new Channel({ name: channelObj.name }).save()
+          .then(channelDoc => {
+            //Have to manually each and push into activities arr, as Mongoose
+            //doesn't leverage Mongo's $each method under the hood
+            channelObj.activities.forEach(
+              activity => channelDoc.activities.push(activity)
+            );
+            return channelDoc.save();
+          })
+          .then(channel => res.json(channel).status(200))
+          .catch(err => res.json(err).status(500));
+      }
+
+    });
 
 });
 

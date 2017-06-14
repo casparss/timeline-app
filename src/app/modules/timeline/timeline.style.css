@@ -9,6 +9,10 @@ channel {
 channel:nth-child(even) { background: #edeef5; }
 channel:nth-child(odd) { background: #ffffff; }
 
+.button-group{
+  display:flex;
+}
+
 .button-container{
   margin-top:30px;
 }
