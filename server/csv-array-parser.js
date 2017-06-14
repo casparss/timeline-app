@@ -46,15 +46,6 @@ module.exports = class CsvArrayParser {
     return this.channel;
   }
 
-  addRow(csvRow){
-    if(this.isFirstRow){
-      this.setChannelTitle(csvRow);
-      this.isFirstRow = false;
-    } else {
-      this.pushChannelData(csvRow);
-    }
-  }
-
   setChannelTitle([title]){
     this.channel.name = title;
   }
