@@ -27,9 +27,10 @@ export class TimelineUtils {
     });
 
     return {
-      min: minBy(chanelsMinMax, ({ min }) => min.unix()).min,
-      max: maxBy(chanelsMinMax, ({ max }) => max.unix()).max
-    }
+      min: minBy(chanelsMinMax, ({ min }) => min.unix()).min.set({ month: 0, date: 1 }),
+      max: maxBy(chanelsMinMax, ({ max }) => max.unix()).max.set({ month: 11, date: 31 })
+    };
+
   }
 
   public getActivityWidth(from, to){
@@ -56,15 +57,15 @@ export class TimelineUtils {
     return years;
   }
 
-  private getRangeInDays(from, to) {
+  public getRangeInDays(from, to) {
     return to.diff(from, "days");
   }
 
-  private getFullRangeInDays(){
+  public getFullRangeInDays(){
     return this.getRangeInDays(range.min, range.max);
   }
 
-  private calculateWidthAsPercentage(fullRangeInDays, rangeInDays){
+  public calculateWidthAsPercentage(fullRangeInDays, rangeInDays){
     return (rangeInDays / fullRangeInDays) * 100;
   }
 
