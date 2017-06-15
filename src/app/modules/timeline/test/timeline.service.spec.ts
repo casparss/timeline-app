@@ -31,7 +31,7 @@ describe('Time line utils', () => {
 
     timelineUtils.setRange(fixture);
     let activityWidth = timelineUtils.getActivityWidth(from, to);
-    expect(activityWidth).toBe(10.831606984314886);
+    expect(activityWidth).toBe(10.024650780608052);
   }));
 
   it('getActivityPosition()', inject([TimelineUtils], timelineUtils => {
@@ -39,7 +39,7 @@ describe('Time line utils', () => {
 
     timelineUtils.setRange(fixture);
     let activityPosition = timelineUtils.getActivityPosition(to);
-    expect(activityPosition).toBe(6.096478248002367);
+    expect(activityPosition).toBe(9.969871268145713);
   }));
 
   it('getYearHeadings()', inject([TimelineUtils], timelineUtils => {
@@ -58,7 +58,7 @@ describe('Time line utils', () => {
   it('getFullRangeInDays()', inject([TimelineUtils], timelineUtils => {
     timelineUtils.setRange(fixture);
     let fullRangeInDays = timelineUtils.getFullRangeInDays();
-    expect(fullRangeInDays).toEqual(3379);
+    expect(fullRangeInDays).toEqual(3651);
   }));
 
   it('calculateWidthAsPercentage()', inject([TimelineUtils], timelineUtils => {
