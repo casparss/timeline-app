@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TimelineSvc } from '../timeline/timeline.service';
+import { DataSvc } from '../data-service';
 
 @Component({
   selector: 'control-filters',
@@ -9,9 +9,9 @@ import { TimelineSvc } from '../timeline/timeline.service';
       <h1>Filters</h1>
 
       <ul>
-        <li>
+        <li *ngFor="let filterControl of channelFilterControls | async">
           <input type="checkbox" />
-
+          {{channel.name}}
         </li>
       </ul>
 
@@ -25,10 +25,16 @@ import { TimelineSvc } from '../timeline/timeline.service';
 })
 export class ControlFiltersCom {
 
-  constructor(private timelineSvc: TimelineSvc) {
+  private channelFilterControls: any;
 
-    this.timelineSvc
-
+  constructor(private dataSvc: DataSvc) {
+    this.dataSvc.channels$.subscribe(channels => {
+      this.channelFilterControls = channels.map(channel => ({
+        _id: channel._id,
+        name: channel.name,
+        visibility: true
+      }));
+    });
   }
 
 }

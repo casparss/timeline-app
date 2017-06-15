@@ -78,12 +78,7 @@ export class TimelineCom {
   }
 
   addChannel(){
-    let newChannel = {
-      name: this.channelTitle,
-      activities: []
-    };
-
-    this.dataSvc.addChannel(newChannel)
+    this.dataSvc.addChannel(this.channelTitle)
       .subscribe(channel => this.channelTitle = "");
   }
 

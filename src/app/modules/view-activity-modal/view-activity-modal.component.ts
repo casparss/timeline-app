@@ -106,7 +106,7 @@ export class ViewActivityModalCom  {
 
   ngOnInit(){
     this.viewActivitySvc.onOpen
-      .subscribe(({ activity, channelId} ) => {
+      .subscribe(({ activity, channelId }) => {
         this.activity = activity;
         this.channelId = channelId;
         this.initialiseForm();
@@ -146,7 +146,7 @@ export class ViewActivityModalCom  {
 
   updateActivity(activityForm){
     let activityId = this.activity._id;
-    let { channelId } = this.viewActivitySvc;
+    let { channelId } = this;
     this.dataSvc.updateActivity({ activityForm, channelId, activityId })
       .subscribe(() => alert("Succesfully updated!"));
   }
@@ -159,7 +159,4 @@ export class ViewActivityModalCom  {
 
   }
 
-  beforeClose(): void {
-    this.viewActivitySvc.purge();
-  }
 }

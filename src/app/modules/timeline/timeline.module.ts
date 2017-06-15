@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { ControlFiltersModule } from '../control-filters';
+import { CommonModule } from '@angular/common';
 import { FormsModule }   from '@angular/forms';
 import { FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
 
@@ -13,9 +12,8 @@ import { TimelineUtils } from './timeline.utils';
 
 @NgModule({
   imports: [
-    BrowserModule,
-    FormsModule,
-    ControlFiltersModule
+    CommonModule,
+    FormsModule
   ],
   declarations: [
     TimelineCom,

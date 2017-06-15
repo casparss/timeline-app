@@ -33,5 +33,4 @@ export class ChannelCom {
     this.onRemove.emit(this.channel._id);
   }
 
-
 }

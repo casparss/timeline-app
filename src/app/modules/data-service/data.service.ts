@@ -39,8 +39,13 @@ export class DataSvc {
       })
   }
 
-  addChannel(channel){
-    return this.http.post('/api/channel', channel)
+  addChannel(channelTitle){
+    let newChannel = {
+      name: channelTitle,
+      activities: []
+    };
+
+    return this.http.post('/api/channel', newChannel)
       .map(res => res.json())
       .do(channel => {
         this.pushNewChanges(channels => {

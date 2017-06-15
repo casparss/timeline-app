@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ViewActivityModalCom } from './view-activity-modal.component';
@@ -9,7 +9,7 @@ import { ModalModule } from "ng2-modal";
 @NgModule({
   imports: [
     ModalModule,
-    BrowserModule,
+    CommonModule,
     FormsModule,
     ReactiveFormsModule
   ],
