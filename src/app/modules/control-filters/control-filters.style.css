@@ -1,0 +1,9 @@
+.filter-panel {
+  position:absolute;
+  box-sizing: border-box;
+  width: 250px;
+  height: 100%;
+  right:0;
+  top: 0;
+  background: #fff;
+}

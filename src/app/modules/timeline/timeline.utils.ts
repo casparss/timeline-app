@@ -7,7 +7,6 @@ let range = {
   max: null
 };
 
-
 @Injectable()
 export class TimelineUtils {
 
@@ -30,7 +29,6 @@ export class TimelineUtils {
       min: minBy(chanelsMinMax, ({ min }) => min.unix()).min.set({ month: 0, date: 1 }),
       max: maxBy(chanelsMinMax, ({ max }) => max.unix()).max.set({ month: 11, date: 31 })
     };
-
   }
 
   public getActivityWidth(from, to){

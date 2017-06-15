@@ -10,6 +10,7 @@ import { Component, ViewContainerRef } from '@angular/core';
     </header>
     <main>
       <timeline></timeline>
+      <control-filters></control-filters>
     </main>
     <footer></footer>
   `

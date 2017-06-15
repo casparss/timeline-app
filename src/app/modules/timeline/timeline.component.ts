@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { remove } from 'lodash';
 import { TimelineSvc } from './timeline.service';
 import { TimelineUtils } from './timeline.utils';
 import { DataSvc } from '../data-service';
 import { Subject, Observable } from 'rxjs';
 import { FileUploader } from 'ng2-file-upload';
-import * as moment from 'moment';
+
 
 @Component({
   selector: 'timeline',
@@ -13,7 +12,7 @@ import * as moment from 'moment';
   template: `
     <time-range [years]="years"></time-range>
     <channel
-      *ngFor="let channel of channels$ | async"
+      *ngFor="let channel of dataSvc.channels$ | async"
       [channel]="channel"
       (onRemove)="removeChannel($event)"
     ></channel>
@@ -38,14 +37,10 @@ import * as moment from 'moment';
         </label>
       </div>
     </div>
-
   `
 })
 export class TimelineCom {
 
-  private channels$: Observable<any>;
-  private channelsSubject$ = <any>new Subject();
-  private channelsLastValue;
   private editMode: boolean = false;
   private uploader: FileUploader = new FileUploader({url: '/api/import'});
 
@@ -57,44 +52,25 @@ export class TimelineCom {
     private timelineUtils: TimelineUtils,
     private timelineSvc: TimelineSvc
   ){
-    this.channels$ = this.configureChannels$();
+    this.dataSvc.channels$.subscribe(channels => {
+      this.timelineUtils.setRange(channels);
+      this.years = this.timelineUtils.getYearHeadings();
+    });
   }
 
   ngOnInit(){
     this.fetch();
 
-    this.uploader.onCompleteItem = ((file, res) => {
-      this.updateChannels(channels => {
-        channels.push(JSON.parse(res));
-        return channels;
-      });
-    });
+    this.uploader.onCompleteItem = ((file, res) =>
+      this.dataSvc.handleUploadResponse(res));
   }
 
   toggleEditMode(){
     this.timelineSvc.editMode(this.editMode = !this.editMode);
   }
 
-  configureChannels$(){
-    return this.channelsSubject$.asObservable()
-      .map(channels => {
-        channels.forEach(({ activities }) => {
-          activities.forEach(({ period }) => {
-            period.from = moment(period.from);
-            period.to = moment(period.to);
-          });
-        });
-        return channels;
-      })
-      .do(channels => {
-        this.timelineUtils.setRange(channels);
-        this.years = this.timelineUtils.getYearHeadings();
-        this.channelsLastValue = channels;
-      });
-  }
-
   fetch(){
-    this.dataSvc.fetch().subscribe(channels => this.channelsSubject$.next(channels));
+    this.dataSvc.fetch().subscribe();
   }
 
   uploadCsv(){
@@ -108,28 +84,11 @@ export class TimelineCom {
     };
 
     this.dataSvc.addChannel(newChannel)
-      .subscribe(channel => {
-        this.updateChannels(channels => {
-          channels.push(channel);
-          return channels;
-        });
-        this.channelTitle = "";
-      });
+      .subscribe(channel => this.channelTitle = "");
   }
 
   removeChannel(channelId: string){
-    this.dataSvc.removeChannel(channelId)
-      .subscribe(() => this.updateChannels(
-        channels => {
-          remove(channels, channel => channel._id === channelId);
-          return channels;
-        }
-      ));
-  }
-
-  updateChannels(mutator){
-    let channelsCopy = Object.assign([], this.channelsLastValue);
-    this.channelsSubject$.next(mutator(channelsCopy));
+    this.dataSvc.removeChannel(channelId).subscribe();
   }
 
 }
