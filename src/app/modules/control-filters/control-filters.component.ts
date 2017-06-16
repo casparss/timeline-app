@@ -41,15 +41,22 @@ export class ControlFiltersCom {
     private dataSvc: DataSvc,
     private timelineSvc: TimelineSvc
   ) {
-    this.dataSvc.channels$.subscribe(channels => {
+    this.dataSvc.channels$.subscribe(channels => this.generateFilterControls(channels));
+  }
 
-      //If channelFilterControls already populated then assign the current checked state
-      this.channelFilterControls = channels.map(channel => ({
-        _id: channel._id,
-        name: channel.name,
-        checked: true
-      }));
-    });
+  generateFilterControls(channels){
+    let oldControls = this.channelFilterControls || [];
+
+    let assignCheckState = ({ _id }) => {
+      let matchedControl = oldControls.find(control => control._id === _id);
+      return matchedControl ? matchedControl.checked : true;
+    };
+
+    this.channelFilterControls = channels.map(channel => ({
+      _id: channel._id,
+      name: channel.name,
+      checked: assignCheckState(channel)
+    }));
   }
 
   filterControlChanged(){
