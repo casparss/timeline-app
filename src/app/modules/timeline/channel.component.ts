@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, HostBinding } from '@angular/core';
+import { Component, Input, Output, EventEmitter, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 import { TimelineSvc } from './timeline.service';
 import * as moment from 'moment';
 
@@ -31,8 +31,10 @@ export class ChannelCom {
   }
 
   filterChange(filterControls){
-    let { checked } = filterControls.find(({ _id }) => this.channel._id === _id);
-    this.display = checked ? SHOW : HIDE;
+    let filterControl = filterControls.find(({ _id }) => this.channel._id === _id);
+    if(filterControl){
+      this.display = filterControl.checked ? SHOW : HIDE;
+    }
   }
 
   addActivity(){
