@@ -1,0 +1,78 @@
+<modal #activityModal
+  (onClose)="editMode = false"
+  modalClass="activity-modal"
+  title="View activity"
+  cancelButtonLabel="cancel"
+  [hideCloseButton]="false"
+  [closeOnEscape]="true"
+  [closeOnOutsideClick]="false">
+
+  <modal-header></modal-header>
+
+  <modal-content>
+    <form *ngIf="hasFormData" [formGroup]="activityForm" [ngSwitch]="editMode" (submit)="updateActivity(this.activityForm.value, activityForm.valid)">
+
+      <div>
+        <button type="button" (click)="toggleEditMode()">Edit activity</button>
+      </div>
+
+      <h1>
+        TItle:
+        <span *ngSwitchCase="false">{{getFormVal('title')}}</span>
+        <input *ngSwitchCase="true" formControlName="title" type="text" />
+      </h1>
+
+      <label>
+        Description:
+        <span *ngSwitchCase="false">{{getFormVal('description')}}</span>
+        <input *ngSwitchCase="true" formControlName="description" type="text" />
+      </label>
+
+      <div formGroupName="period">
+        <label>
+          From:
+          <span *ngSwitchCase="false">{{getPeriodVal('from')}}</span>
+          <input *ngSwitchCase="true" formControlName="from" type="text" />
+        </label>
+
+        <label>
+          To:
+          <span *ngSwitchCase="false">{{getPeriodVal('to')}}</span>
+          <input *ngSwitchCase="true" formControlName="to" type="text" />
+        </label>
+      </div>
+
+      <label>
+        Location:
+        <span *ngSwitchCase="false">{{getFormVal('location')}}</span>
+        <input *ngSwitchCase="true" formControlName="location" type="text" />
+      </label>
+
+      <label>
+        Communication drivers:
+        <span *ngSwitchCase="false">{{getFormVal('communication_drivers')}}</span>
+        <input *ngSwitchCase="true" formControlName="communication_drivers" type="text" />
+      </label>
+
+      <label>
+        Kols engaged:
+        <span *ngSwitchCase="false">{{getFormVal('kols_engaged')}}</span>
+        <input *ngSwitchCase="true" formControlName="kols_engaged" type="text" />
+      </label>
+
+      <label>
+        No. of HCPs:
+        <span *ngSwitchCase="false">{{getFormVal('no_of_hcps')}}</span>
+        <input *ngSwitchCase="true" formControlName="no_of_hcps" type="text" />
+      </label>
+
+      <label>
+        Status:
+        <span *ngSwitchCase="false">{{getFormVal('status')}}</span>
+        <input *ngSwitchCase="true" formControlName="status" type="text" />
+      </label>
+      <button *ngSwitchCase="true" type="submit">Update activity</button>
+    </form>
+  </modal-content>
+
+</modal>
