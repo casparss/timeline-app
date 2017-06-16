@@ -1,6 +1,9 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, HostBinding } from '@angular/core';
 import { TimelineSvc } from './timeline.service';
 import * as moment from 'moment';
+
+const SHOW = 'block';
+const HIDE = 'none';
 
 @Component({
   selector: 'channel',
@@ -19,10 +22,17 @@ import * as moment from 'moment';
 export class ChannelCom {
   @Input() channel: any;
   @Output() onRemove: EventEmitter<any> = new EventEmitter();
+  @HostBinding('style.display') display: string;
   private editMode: boolean;
 
   constructor(private timelineSvc: TimelineSvc){
     timelineSvc.onEditMode.subscribe(toggle => this.editMode = toggle);
+    timelineSvc.onFilterChange.subscribe(filterControls => this.filterChange(filterControls));
+  }
+
+  filterChange(filterControls){
+    let { checked } = filterControls.find(({ _id }) => this.channel._id === _id);
+    this.display = checked ? SHOW : HIDE;
   }
 
   addActivity(){

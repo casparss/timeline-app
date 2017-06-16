@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ControlFiltersCom } from './control-filters.component';
 
@@ -7,7 +8,8 @@ import { ControlFiltersCom } from './control-filters.component';
     ControlFiltersCom
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   exports: [
     ControlFiltersCom

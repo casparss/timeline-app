@@ -8,6 +8,7 @@ import { HeaderBarModule } from './modules/header-bar';
 import { TimeLineModule } from './modules/timeline';
 import { ControlFiltersModule } from './modules/control-filters';
 
+import { TimelineSvc } from './modules/timeline/timeline.service';
 import { DataSvc } from './modules/data-service';
 import { ViewActivityModalSvc } from './modules/view-activity-modal/view-activity-modal.service';
 
@@ -25,7 +26,8 @@ import { ViewActivityModalSvc } from './modules/view-activity-modal/view-activit
   ],
   providers: [
     DataSvc,
-    ViewActivityModalSvc
+    ViewActivityModalSvc,
+    TimelineSvc
   ],
   bootstrap: [AppComponent]
 })
