@@ -19,6 +19,7 @@ export class DataSvc {
 
   private configureChannels$(){
     return this.channelsSubject$.asObservable()
+      .do(channels => this.channelsLastValue = channels)
       .map(channels => {
         channels.forEach(({ activities }) => {
           activities.forEach(({ period }) => {
@@ -33,10 +34,7 @@ export class DataSvc {
   fetch(){
     return this.http.get('/api/channels')
       .map(res => res.json())
-      .do(channels => {
-        this.channelsSubject$.next(channels);
-        this.channelsLastValue = channels;
-      })
+      .do(channels => this.channelsSubject$.next(channels));
   }
 
   addChannel(channelTitle){
